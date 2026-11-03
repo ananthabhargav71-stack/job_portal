@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Job Details</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --cream: #f3ead7;
+      --cream-dark: #e3d7bd;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--black); color: var(--cream); font-family: Arial, Helvetica, sans-serif; min-height: 100vh; }
+
+    nav { display: flex; align-items: center; gap: 24px; padding: 18px 40px; background: var(--black); border-bottom: 2px solid var(--cream); }
+    nav a { color: var(--cream); text-decoration: none; font-weight: bold; padding-bottom: 3px; border-bottom: 2px solid transparent; }
+    nav a:hover { border-bottom-color: var(--cream); }
+
+    .container { max-width: 760px; margin: 50px auto; padding: 0 20px; }
+    .card { background: var(--cream); color: var(--black); border-radius: 10px; padding: 36px; border: 3px solid var(--cream); box-shadow: 8px 8px 0 var(--cream-dark); }
+    .card h1 { margin: 0 0 6px; font-size: 2rem; }
+    .company { font-size: 1.1rem; margin-bottom: 24px; padding-bottom: 18px; border-bottom: 2px solid var(--black); }
+    .row { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px dashed var(--black); }
+    .row:last-child { border-bottom: none; }
+    .label { flex: 0 0 110px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; padding-top: 3px; }
+    .value { flex: 1; }
+    .back { display: inline-block; margin-top: 28px; padding: 10px 20px; color: var(--cream); border: 2px solid var(--cream); border-radius: 6px; text-decoration: none; font-weight: bold; }
+    .back:hover { background: var(--cream); color: var(--black); }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; flex-wrap: wrap; gap: 14px; }
+      .card { padding: 22px; }
+      .row { flex-direction: column; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="postjobs.html">Post Job</a>
+    <a href="interviews.html">Interview Data</a>
+  </nav>
+
+  <div class="container">
+    <div class="card" id="job-card">Loading...</div>
+    <a class="back" href="jobs.html">&larr; Back to jobs</a>
+  </div>
+
+  <script>
+    const id = new URLSearchParams(window.location.search).get('id');
+    const card = document.getElementById('job-card');
+
+    async function loadJob() {
+      if (!id) { card.textContent = 'No job selected.'; return; }
+      try {
+        const res = await fetch('/api/jobs/' + id);
+        if (!res.ok) { card.textContent = 'Job not found.'; return; }
+        const job = await res.json();
+
+        card.innerHTML = '';
+
+        const title = document.createElement('h1');
+        title.textContent = job.job_title;
+        card.appendChild(title);
+
+        const company = document.createElement('div');
+        company.className = 'company';
+        company.textContent = job.company;
+        card.appendChild(company);
+
+        [['Location', job.location], ['Salary', job.salary], ['Skills', job.skills]].forEach(([label, value]) => {
+          const row = document.createElement('div');
+          row.className = 'row';
+          const l = document.createElement('span');
+          l.className = 'label';
+          l.textContent = label;
+          const v = document.createElement('span');
+          v.className = 'value';
+          v.textContent = value;
+          row.appendChild(l);
+          row.appendChild(v);
+          card.appendChild(row);
+        });
+      } catch (e) {
+        card.textContent = 'Failed to load job.';
+      }
+    }
+    loadJob();
+  </script>
+</body>
+</html>

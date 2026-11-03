@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JobHub - Find Your Next Job</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">Job<span>Hub</span></a>
+    <nav>
+      <a href="index.html" class="active">Home</a>
+      <a href="jobs.html">Browse Jobs</a>
+      <a href="postjobs.html">Post a Job</a>
+      <a href="interviews.html">Interview Data</a>
+      <a href="job-details.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Find the job that fits your skills</h1>
+    <p>Search openings from top companies across the country.</p>
+    <form class="search-bar" action="jobs.html" method="GET">
+      <input type="text" name="q" placeholder="Job title, company or skill">
+      <input type="text" name="location" placeholder="Location">
+      <button type="submit" class="btn">Search</button>
+    </form>
+  </section>
+
+  <section class="container">
+    <h2 class="section-title">Featured Jobs</h2>
+    <div id="featured-jobs" class="job-grid"></div>
+    <div class="center"><a href="jobs.html" class="btn btn-outline">View All Jobs</a></div>
+  </section>
+
+  <section class="how">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps">
+        <div class="step"><span>1</span><h3>Search</h3><p>Look up jobs by title, company, skill or location.</p></div>
+        <div class="step"><span>2</span><h3>Explore</h3><p>Open a listing to see salary and required skills.</p></div>
+        <div class="step"><span>3</span><h3>Apply</h3><p>Click apply and get closer to your next role.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">&copy; 2026 JobHub. All rights reserved.</footer>
+  <script src="main.js"></script>
+  <script src="server.js"></script>
+</body>
+</html>

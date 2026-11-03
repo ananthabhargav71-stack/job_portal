@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interview Data</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --black: #0d0d0d;
+      --cream: #f3ead7;
+      --cream-dark: #e3d7bd;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--black); color: var(--cream); font-family: Arial, Helvetica, sans-serif; min-height: 100vh; }
+
+    nav { display: flex; align-items: center; gap: 24px; padding: 18px 40px; background: var(--black); border-bottom: 2px solid var(--cream); }
+    nav a { color: var(--cream); text-decoration: none; font-weight: bold; padding-bottom: 3px; border-bottom: 2px solid transparent; }
+    nav a:hover { border-bottom-color: var(--cream); }
+
+    .container { max-width: 1250px; margin: 40px auto; padding: 0 20px; }
+    h1 { margin: 0 0 6px; font-size: 2rem; }
+    .subtitle { margin: 0 0 24px; opacity: 0.8; }
+
+    .table-wrap { overflow-x: auto; border: 3px solid var(--cream); border-radius: 10px; box-shadow: 8px 8px 0 var(--cream-dark); }
+    table { width: 100%; border-collapse: collapse; background: var(--cream); color: var(--black); font-size: 0.92rem; }
+    thead th { background: var(--black); color: var(--cream); text-align: left; padding: 14px 12px; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; white-space: nowrap; }
+    tbody td { padding: 12px; border-bottom: 1px solid var(--black); vertical-align: top; }
+    tbody tr:nth-child(even) { background: var(--cream-dark); }
+    tbody tr:hover { background: var(--black); color: var(--cream); }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .status { display: inline-block; padding: 3px 10px; border: 2px solid currentColor; border-radius: 20px; font-size: 0.75rem; font-weight: bold; white-space: nowrap; }
+    .status.completed { background: var(--black); color: var(--cream); }
+    tbody tr:hover .status.completed { background: var(--cream); color: var(--black); }
+    .status.cancelled { text-decoration: line-through; }
+
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; flex-wrap: wrap; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="jobs.html">Jobs</a>
+    <a href="postjobs.html">Post Job</a>
+    <a href="interviews.html" class="active">Interview Data</a>
+    <a href="job-details.html">Contact</a>
+  </nav>
+
+  <div class="container">
+    <h1>Interview Data</h1>
+    <p class="subtitle">All scheduled and completed interviews</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th><th>Candidate</th><th>Job</th><th>Company</th>
+            <th>Date</th><th>Time</th><th>Round</th>
+            <th>Interviewer</th><th>Status</th><th>Feedback</th>
+          </tr>
+        </thead>
+        <tbody id="interview-body">
+          <tr><td colspan="10">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+  async function loadInterviews() {
+    const body = document.getElementById('interview-body');
+    try {
+      const res = await fetch('/api/interviews');
+      const text = await res.text();
+      if (!res.ok) throw new Error('Server replied ' + res.status + ': ' + text.slice(0, 200));
+
+      const data = JSON.parse(text);
+      body.innerHTML = '';
+
+      if (data.length === 0) {
+        body.innerHTML = '<tr><td colspan="10">No interviews found.</td></tr>';
+        return;
+      }
+
+      data.forEach(i => {
+        const date = i.interview_date ? String(i.interview_date).slice(0, 10) : '';
+        const time = i.interview_time ? String(i.interview_time).slice(0, 5) : '';
+        const tr = document.createElement('tr');
+
+        [i.interview_id, i.candidate_name, i.job_title, i.company, date, time,
+         i.round, i.interviewer].forEach(c => {
+          const td = document.createElement('td');
+          td.textContent = c;
+          tr.appendChild(td);
+        });
+
+        const statusTd = document.createElement('td');
+        const badge = document.createElement('span');
+        badge.className = 'status ' + String(i.status || '').toLowerCase();
+        badge.textContent = i.status;
+        statusTd.appendChild(badge);
+        tr.appendChild(statusTd);
+
+        const fbTd = document.createElement('td');
+        fbTd.textContent = i.feedback || '-';
+        tr.appendChild(fbTd);
+
+        body.appendChild(tr);
+      });
+    } catch (e) {
+      body.innerHTML = '';
+      const tr = document.createElement('tr');
+      const td = document.createElement('td');
+      td.colSpan = 10;
+      td.textContent = 'Failed to load interviews: ' + e.message;
+      tr.appendChild(td);
+      body.appendChild(tr);
+    }
+  }
+  loadInterviews();
+</script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post a Job - JobHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">Job<span>Hub</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="jobs.html">Browse Jobs</a>
+      <a href="postjob.html" class="active">Post a Job</a>
+      <a href="interviews.html">Interview Data</a>
+      <a href="job-details.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="container narrow">
+    <h2 class="section-title">Post a Job</h2>
+    <form id="post-job-form" class="form-card">
+      <label for="job_title">Job Title</label>
+      <input type="text" id="job_title" name="job_title" required>
+
+      <label for="company">Company</label>
+      <input type="text" id="company" name="company" required>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" required>
+
+      <label for="salary">Salary</label>
+      <input type="text" id="salary" name="salary" placeholder="e.g. 6 LPA" required>
+
+      <label for="skills">Skills (comma separated)</label>
+      <input type="text" id="skills" name="skills" placeholder="e.g. HTML, CSS, JavaScript" required>
+
+      <button type="submit" class="btn">Post Job</button>
+      <p id="form-message" class="form-message"></p>
+    </form>
+  </section>
+
+  <footer class="footer">&copy; 2026 JobHub. All rights reserved.</footer>
+  <script src="main.js"></script>
+</body>
+</html>

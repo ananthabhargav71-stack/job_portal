@@ -1,0 +1,187 @@
+:root {
+  --black: #111111;
+  --black-soft: #1c1c1c;
+  --cream: #f5efe0;
+  --cream-dark: #e8dfc8;
+  --muted: #6b6558;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background: var(--cream);
+  color: var(--black);
+  line-height: 1.6;
+}
+
+a { text-decoration: none; color: inherit; }
+
+/* ---------- Navbar ---------- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background: var(--black);
+  color: var(--cream);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.logo { font-size: 1.6rem; font-weight: 700; }
+.logo span { color: var(--cream-dark); font-weight: 300; }
+.navbar nav a { margin-left: 24px; padding-bottom: 4px; }
+.navbar nav a:hover,
+.navbar nav a.active { border-bottom: 2px solid var(--cream); }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: var(--black);
+  color: var(--cream);
+  text-align: center;
+  padding: 80px 20px 90px;
+}
+.hero h1 { font-size: 2.6rem; margin-bottom: 10px; }
+.hero p { color: var(--cream-dark); margin-bottom: 30px; }
+
+.search-bar {
+  display: flex;
+  gap: 10px;
+  max-width: 750px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.search-bar input { flex: 1; min-width: 200px; }
+
+/* ---------- Inputs & buttons ---------- */
+input {
+  padding: 12px 14px;
+  border: 2px solid var(--black);
+  border-radius: 6px;
+  background: var(--cream);
+  font-size: 1rem;
+  color: var(--black);
+}
+input:focus { outline: none; border-color: var(--muted); }
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background: var(--cream);
+  color: var(--black);
+  border: 2px solid var(--cream);
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.btn:hover { background: var(--cream-dark); }
+
+.container .btn,
+.form-card .btn,
+.detail-card .btn,
+.filter-bar .btn {
+  background: var(--black);
+  color: var(--cream);
+  border-color: var(--black);
+}
+.container .btn:hover,
+.form-card .btn:hover,
+.detail-card .btn:hover,
+.filter-bar .btn:hover { background: var(--black-soft); }
+
+.btn-outline,
+.container .btn-outline,
+.filter-bar .btn-outline {
+  background: transparent;
+  color: var(--black);
+  border: 2px solid var(--black);
+}
+.container .btn-outline:hover,
+.filter-bar .btn-outline:hover { background: var(--black); color: var(--cream); }
+
+/* ---------- Layout ---------- */
+.container { max-width: 1100px; margin: 0 auto; padding: 50px 20px; }
+.container.narrow { max-width: 700px; }
+.section-title { font-size: 1.8rem; margin-bottom: 24px; }
+.center { text-align: center; margin-top: 30px; }
+.muted { color: var(--muted); }
+
+/* ---------- Job cards ---------- */
+.job-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+.job-card {
+  background: #fffaf0;
+  border: 2px solid var(--black);
+  border-radius: 10px;
+  padding: 22px;
+  transition: 0.2s;
+}
+.job-card:hover { transform: translateY(-4px); box-shadow: 6px 6px 0 var(--black); }
+.job-card h3 { font-size: 1.2rem; margin-bottom: 4px; }
+.job-card .company { font-weight: 600; color: var(--muted); }
+.job-card .meta { margin: 10px 0; font-size: 0.95rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.tag {
+  background: var(--black);
+  color: var(--cream);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+.job-card .btn { padding: 8px 18px; font-size: 0.9rem; }
+
+/* ---------- Filter bar ---------- */
+.filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-bar input { flex: 1; min-width: 160px; }
+#result-count { margin-bottom: 16px; }
+
+/* ---------- How it works ---------- */
+.how { background: var(--cream-dark); }
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+.step { text-align: center; padding: 20px; }
+.step span {
+  display: inline-block;
+  width: 48px; height: 48px; line-height: 48px;
+  background: var(--black);
+  color: var(--cream);
+  border-radius: 50%;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* ---------- Details & form ---------- */
+.back-link { display: inline-block; margin-bottom: 20px; font-weight: 600; }
+.detail-card, .form-card {
+  background: #fffaf0;
+  border: 2px solid var(--black);
+  border-radius: 10px;
+  padding: 30px;
+}
+.detail-card h1 { margin-bottom: 4px; }
+.detail-card .info { margin: 18px 0; }
+.detail-card .info p { margin-bottom: 8px; }
+.form-card label { display: block; font-weight: 600; margin: 14px 0 6px; }
+.form-card input { width: 100%; }
+.form-card .btn { margin-top: 22px; }
+.form-message { margin-top: 14px; font-weight: 600; }
+
+/* ---------- Footer ---------- */
+.footer {
+  background: var(--black);
+  color: var(--cream-dark);
+  text-align: center;
+  padding: 20px;
+}
+
+@media (max-width: 600px) {
+  .navbar { padding: 14px 18px; }
+  .navbar nav a { margin-left: 14px; }
+  .hero h1 { font-size: 1.9rem; }
+}

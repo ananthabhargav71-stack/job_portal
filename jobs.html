@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Jobs - JobHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a href="index.html" class="logo">Job<span>Hub</span></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="jobs.html" class="active">Browse Jobs</a>
+      <a href="postjobs.html">Post a Job</a>
+      <a href="interviews.html">Interview Data</a>
+      <a href=".html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="container">
+    <h2 class="section-title">Browse Jobs</h2>
+
+    <form id="filter-form" class="filter-bar">
+      <input type="text" id="q" placeholder="Title, company or skill">
+      <input type="text" id="location" placeholder="Location">
+      <input type="text" id="skills" placeholder="Skill (e.g. Java)">
+      <button type="submit" class="btn">Filter</button>
+      <button type="button" id="reset-btn" job-details class="btn btn-outline">Reset</button>
+    </form>
+
+    <p id="result-count" class="muted"></p>
+    <div id="jobs-list" class="job-grid"></div>
+  </section>
+
+  <footer class="footer">&copy; 2026 JobHub. All rights reserved.</footer>
+  <script src="main.js"></script>
+  <script src="server.js"></script>
+</body>
+</html>
